@@ -10,10 +10,13 @@ import UIKit
 
 class ProductListViewController: BaseViewController {
 
+    @IBOutlet weak var tblReference: HTProductListTableView!
+    var aryProduct:[HTProduct] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        self.tblReference.aryProducts = aryProduct
     }
     
 

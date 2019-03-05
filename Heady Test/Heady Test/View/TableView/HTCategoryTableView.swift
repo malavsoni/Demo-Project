@@ -17,5 +17,29 @@ class HTCategoryTableView: HTTableView {
         // Drawing code
     }
     */
+    var aryCategories:[HTCategory] = []{
+        didSet{
+            self.reloadData()
+        }
+    }
+    
+    override func commonInit() {
+        self.rowHeight = UITableView.automaticDimension
+        self.register(UINib.init(nibName: "\(HTCategoryTableViewCell.self)", bundle: nil), forCellReuseIdentifier: "\(HTCategoryTableViewCell.self)")
+        super.commonInit()
+    }
 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return aryCategories.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellRef = tableView.dequeueReusableCell(withIdentifier: "\(HTCategoryTableViewCell.self)") as! HTCategoryTableViewCell
+        cellRef.updateCell(WithContent: self.aryCategories[indexPath.row])
+        return cellRef
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }

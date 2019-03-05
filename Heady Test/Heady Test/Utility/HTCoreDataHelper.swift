@@ -66,3 +66,65 @@ class HTCoreDataHelper: NSObject {
         super.init()
     }
 }
+
+extension HTCoreDataHelper{
+    // Helper Methods
+    @discardableResult
+    func getAllCategory() -> [HTCategory] {
+        let fetchRequest = NSFetchRequest<Category>(entityName: "\(Category.self)")
+        fetchRequest.includesSubentities = true
+        //fetchRequest.predicate = NSPredicate.init(format: "%K.count > %i","childCategories",0)
+        var aryToReturn:[HTCategory] = []
+        do {
+            let results = try self.getCurrentContext().fetch(fetchRequest)
+            for cat in results {
+                //print(cat.debugDescription)
+                aryToReturn.append(HTCategory.init(WithCoreDataObject: cat))
+            }
+        } catch  {
+            return aryToReturn
+        }
+        return aryToReturn
+    }
+    
+    func getCategory(ById categoryId:String) -> HTCategory? {
+        let fetchRequest = NSFetchRequest<Category>(entityName: "\(Category.self)")
+        fetchRequest.includesSubentities = true
+        fetchRequest.predicate = NSPredicate.init(format: "%K = %i","id",Int(categoryId)!)
+        var valueToReturn:HTCategory?
+        do {
+            let results = try self.getCurrentContext().fetch(fetchRequest)
+            for cat in results {
+                //print(cat.debugDescription)
+                valueToReturn = (HTCategory.init(WithCoreDataObject: cat))
+            }
+        } catch  {
+            return valueToReturn
+        }
+        return valueToReturn
+    }
+    
+    func clearDatabase() -> Void {
+        let categoryFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(Category.self)")
+        let categoryDeleteRequest = NSBatchDeleteRequest.init(fetchRequest: categoryFetchRequest)
+        
+        let productFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(Product.self)")
+        let productDeleteRequest = NSBatchDeleteRequest.init(fetchRequest: productFetchRequest)
+        
+        let varientFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(Variant.self)")
+        let varientDeleteRequest = NSBatchDeleteRequest.init(fetchRequest: varientFetchRequest)
+        
+        let taxFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(Tax.self)")
+        let taxDeleteRequest = NSBatchDeleteRequest.init(fetchRequest: taxFetchRequest)
+        
+        do {
+            try self.getCurrentContext().execute(categoryDeleteRequest)
+            try self.getCurrentContext().execute(productDeleteRequest)
+            try self.getCurrentContext().execute(varientDeleteRequest)
+            try self.getCurrentContext().execute(taxDeleteRequest)
+            try self.getCurrentContext().save()
+        } catch  {
+            
+        }
+    }
+}

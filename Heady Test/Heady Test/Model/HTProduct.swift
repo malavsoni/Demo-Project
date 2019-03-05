@@ -43,8 +43,33 @@ class HTProduct: NSObject {
         if let dicTax = dicContent[APIKeys.tax.rawValue] as? [String:Any]{
             self.tax = HTTax.init(WithContent: dicTax)
         }
-        if let dateAdded = dicContent[APIKeys.dateAdded.rawValue] as? String{
-            self.dateAdded = nil
+        if let strDateAdded = dicContent[APIKeys.dateAdded.rawValue] as? String{
+             let fullFireStoreDateFormate             = "yyyy-MM-dd'T'HH:mm:ss.SSSz"
+            let dateFormatter = DateFormatter.init()
+            dateFormatter.dateFormat = fullFireStoreDateFormate
+            let date = dateFormatter.date(from: strDateAdded)
+            self.dateAdded = date
+        }
+    }
+    
+    init(WithCoreDataObject coreData:Product) {
+        super.init()
+        self.id = Int(coreData.id)
+        self.name = coreData.name ?? ""
+        self.dateAdded = coreData.dateAdded
+        
+        if let aryVarientsFromCoreData = coreData.varients{
+            var aryVarients:[HTVarient] = []
+            for varient in aryVarientsFromCoreData{
+                if let coreDataObj = varient as? Variant{
+                    aryVarients.append(HTVarient.init(WithCoreDataObject: coreDataObj))
+                }
+            }
+            self.varients = aryVarients
+        }
+        
+        if let productTax = coreData.tax{
+            self.tax = HTTax.init(WithCoreDataObject: productTax)
         }
     }
     
@@ -54,7 +79,7 @@ class HTProduct: NSObject {
         let product = Product.init(entity: entity, insertInto: HTCoreDataHelper.shared.getCurrentContext())
         product.id = Int64(self.id)
         product.name = self.name
-        
+        product.dateAdded = self.dateAdded
         for varient in self.varients{
             if let coreDataObject = varient.saveToLocalStorage(){
                 product.addToVarients(coreDataObject)

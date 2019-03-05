@@ -38,6 +38,14 @@ class HTVarient: NSObject {
         }
     }
     
+    init(WithCoreDataObject coreData:Variant) {
+        super.init()
+        self.id = Int(coreData.id)
+        self.color = coreData.color ?? ""
+        self.price = Int(coreData.price)
+        self.size = Int(coreData.size)
+    }
+    
     @discardableResult
     func saveToLocalStorage() -> Variant? {
         guard let entity = HTCoreDataHelper.shared.getEntityDescription(ForClassname: "\(Variant.self)") else { return nil }

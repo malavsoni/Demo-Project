@@ -17,7 +17,7 @@ class HTServiceManager: NSObject {
         super.init()
     }
     
-    func getCategoryInfoFromServer(WithCompletion completion:(()->())) -> Void {
+    func getCategoryInfoFromServer(WithCompletion completion:@escaping ((Bool,[HTCategory],Error?)->())) -> Void {
         if let appURL = URL.init(string: "https://stark-spire-93433.herokuapp.com/json"){
             Alamofire.request(URLRequest.init(url: appURL)).responseJSON { (response) in
                 switch response.result{
@@ -25,17 +25,20 @@ class HTServiceManager: NSObject {
                     var aryValueToReturn:[HTCategory] = []
                     if let serverResponse = jsonValue as? [String:Any]{
                         if let aryCategory = serverResponse["categories"] as? [[String:Any]]{
-                            
+                            // Store Category In Local Database
                             for category in aryCategory{
                                 let categoryRef = HTCategory.init(WithContent: category)
                                 categoryRef.saveToLocalStorage()
                                 aryValueToReturn.append(categoryRef)
                             }
+                             
                         }
                     }
+                    completion(true,aryValueToReturn,nil)
                     break
                 case .failure(let error):
                     print(error)
+                    completion(false,[],error)
                     break
                 }
             }

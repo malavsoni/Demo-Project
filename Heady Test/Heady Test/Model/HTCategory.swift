@@ -14,13 +14,14 @@ class HTCategory: NSObject {
         case id = "id"
         case name = "name"
         case products = "products"
-        case childCategory = "child_category"
+        case childCategory = "child_categories"
     }
     
     var id:Int = -1
     var name:String = ""
     var products:[HTProduct] = []
     var childCategory:[HTCategory] = []
+    var aryChildCategoryId:[String] = []
     
     init(WithContent dicContent:[String:Any]) {
         super.init()
@@ -37,12 +38,45 @@ class HTCategory: NSObject {
             }
             self.products = aryProductObjects
         }
-        if let aryCategory = dicContent[APIKeys.childCategory.rawValue] as? [[String:Any]]{
-            var aryCategoryObjects:[HTCategory] = []
-            for category in aryCategory{
-                aryCategoryObjects.append(HTCategory.init(WithContent: category))
+        if let aryCategory = dicContent[APIKeys.childCategory.rawValue] as? [Int]{
+            for intValue in aryCategory{
+                self.aryChildCategoryId.append("\(intValue)")
             }
-            self.childCategory = aryCategoryObjects
+        }
+    }
+    
+    init(WithCoreDataObject coreData:Category) {
+        super.init()
+        self.id = Int(coreData.id)
+        self.name = coreData.name ?? ""
+        
+        if let strCategory = coreData.childCategories{
+            let aryCategory = strCategory.split(separator: ",") 
+            for categoryId in aryCategory{
+                if let category = HTCoreDataHelper.shared.getCategory(ById: String(categoryId)){
+                    self.childCategory.append(category)
+                }
+            }
+        }
+        
+//        if let aryCategoryFromCoreData = coreData.childCategories{
+//            var aryCategory:[HTCategory] = []
+//            for objCategory in aryCategoryFromCoreData{
+//                if let coreDataObj = objCategory as? Category{
+//                    aryCategory.append(HTCategory.init(WithCoreDataObject: coreDataObj))
+//                }
+//            }
+//            self.childCategory = aryCategory
+//        }
+        
+        if let aryCategoryFromCoreData = coreData.products{
+            var aryCategory:[HTProduct] = []
+            for objCategory in aryCategoryFromCoreData{
+                if let coreDataObj = objCategory as? Product{
+                    aryCategory.append(HTProduct.init(WithCoreDataObject: coreDataObj))
+                }
+            }
+            self.products = aryCategory
         }
     }
     
@@ -61,11 +95,15 @@ class HTCategory: NSObject {
             }
         }
         
-        for childCategory in self.childCategory{
-            if let coreDataObject = childCategory.saveToLocalStorage(){
-                category.addToChildCategories(coreDataObject)
-            }
-        }
+        category.childCategories = aryChildCategoryId.joined(separator: ",")
+        
+//        category.childCategories = aryChildCategoryId.
+        
+//        for childCategory in self.childCategory{
+//            if let coreDataObject = childCategory.saveToLocalStorage(){
+//                category.addToChildCategories(coreDataObject)
+//            }
+//        }
         
         HTCoreDataHelper.shared.saveContext()
         return category

@@ -28,6 +28,12 @@ class HTTax: NSObject {
         }
     }
     
+    init(WithCoreDataObject coreData:Tax) {
+        super.init()
+        self.name = coreData.name ?? ""
+        self.value = coreData.value
+    }
+    
     @discardableResult
     func saveToLocalStorage() -> Tax? {
         guard let entity = HTCoreDataHelper.shared.getEntityDescription(ForClassname: "\(Tax.self)") else { return nil }
