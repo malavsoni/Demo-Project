@@ -27,4 +27,13 @@ class HTTax: NSObject {
             self.value = value
         }
     }
+    
+    @discardableResult
+    func saveToLocalStorage() -> Tax? {
+        guard let entity = HTCoreDataHelper.shared.getEntityDescription(ForClassname: "\(Tax.self)") else { return nil }
+        let tax = Tax.init(entity: entity, insertInto: HTCoreDataHelper.shared.getCurrentContext())
+        tax.name = self.name
+        tax.value = self.value 
+        return tax
+    }
 }

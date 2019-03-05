@@ -27,7 +27,9 @@ class HTServiceManager: NSObject {
                         if let aryCategory = serverResponse["categories"] as? [[String:Any]]{
                             
                             for category in aryCategory{
-                                aryValueToReturn.append(HTCategory.init(WithContent: category))
+                                let categoryRef = HTCategory.init(WithContent: category)
+                                categoryRef.saveToLocalStorage()
+                                aryValueToReturn.append(categoryRef)
                             }
                         }
                     }

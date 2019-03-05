@@ -37,4 +37,15 @@ class HTVarient: NSObject {
             self.size = size
         }
     }
+    
+    @discardableResult
+    func saveToLocalStorage() -> Variant? {
+        guard let entity = HTCoreDataHelper.shared.getEntityDescription(ForClassname: "\(Variant.self)") else { return nil }
+        let variant = Variant.init(entity: entity, insertInto: HTCoreDataHelper.shared.getCurrentContext())
+        variant.id = Int64(self.id)
+        variant.color = self.color
+        variant.size = Int64(self.size)
+        variant.price = Int64(self.price)
+        return variant
+    }
 }

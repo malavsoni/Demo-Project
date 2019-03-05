@@ -46,7 +46,28 @@ class HTCategory: NSObject {
         }
     }
     
-    func saveToLocalStorage() -> Void {
+    @discardableResult
+    func saveToLocalStorage() -> Category? {
+        guard let entity = HTCoreDataHelper.shared.getEntityDescription(ForClassname: "\(Category.self)") else { return nil }
+        let category = Category.init(entity: entity, insertInto: HTCoreDataHelper.shared.getCurrentContext())
+        category.id = Int64(self.id)
+        category.name = self.name
         
+        //HTCoreDataHelper.shared.saveContext()
+        
+        for product in self.products{
+            if let coreDataObject = product.saveToLocalStorage(){
+                category.addToProducts(coreDataObject)
+            }
+        }
+        
+        for childCategory in self.childCategory{
+            if let coreDataObject = childCategory.saveToLocalStorage(){
+                category.addToChildCategories(coreDataObject)
+            }
+        }
+        
+        HTCoreDataHelper.shared.saveContext()
+        return category
     }
 }

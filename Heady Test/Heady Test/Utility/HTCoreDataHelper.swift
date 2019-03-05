@@ -42,7 +42,12 @@ class HTCoreDataHelper: NSObject {
     }()
     
     // MARK: - Core Data Saving support
-    
+    func getCurrentContext() -> NSManagedObjectContext{
+        return persistentContainer.viewContext
+    }
+    func getEntityDescription(ForClassname className:String) -> NSEntityDescription? {
+        return NSEntityDescription.entity(forEntityName: "\(className)", in: self.persistentContainer.viewContext)
+    }
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {

@@ -47,4 +47,24 @@ class HTProduct: NSObject {
             self.dateAdded = nil
         }
     }
+    
+    @discardableResult
+    func saveToLocalStorage() -> Product? {
+        guard let entity = HTCoreDataHelper.shared.getEntityDescription(ForClassname: "\(Product.self)") else { return nil }
+        let product = Product.init(entity: entity, insertInto: HTCoreDataHelper.shared.getCurrentContext())
+        product.id = Int64(self.id)
+        product.name = self.name
+        
+        for varient in self.varients{
+            if let coreDataObject = varient.saveToLocalStorage(){
+                product.addToVarients(coreDataObject)
+            }
+        }
+        
+        if let taxCoreDataObject = tax.saveToLocalStorage(){
+            product.tax = taxCoreDataObject
+        }
+         
+        return product
+    }
 }
