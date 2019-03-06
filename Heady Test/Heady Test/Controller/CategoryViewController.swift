@@ -23,20 +23,24 @@ class CategoryViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
         self.setUpTableView()
         if self.categoryListType == .mainCategory{
             self.title = "All Category List"
-            HTCoreDataHelper.shared.clearDatabase()
-            
-            // Do any additional setup after loading the view.
-            HTLoader.shared.showLoader()
-            HTServiceManager.shared.getCategoryInfoFromServer {[weak self](isSuccess,aryCategory,error) in
-                guard let controllerRef = self else { return }
-                OperationQueue.main.addOperation {
-                    controllerRef.aryCategory = HTCoreDataHelper.shared.getAllCategory()
-                    controllerRef.tblReference.aryCategories = controllerRef.aryCategory
-                    HTLoader.shared.hideLoader()
+            if HTServiceManager.isInternetAvailable(){
+                HTLoader.shared.showLoader()
+                HTServiceManager.shared.getCategoryInfoFromServer {[weak self](isSuccess,aryCategory,error) in
+                    guard let controllerRef = self else { return }
+                    OperationQueue.main.addOperation {
+                        controllerRef.aryCategory = HTCoreDataHelper.shared.getAllCategory()
+                        controllerRef.tblReference.aryCategories = controllerRef.aryCategory
+                        HTLoader.shared.hideLoader()
+                    }
                 }
+            }else{
+                    self.aryCategory = HTCoreDataHelper.shared.getAllCategory()
+                    self.tblReference.aryCategories = self.aryCategory
+                    HTLoader.shared.hideLoader()
             }
         }else{
             self.tblReference.aryCategories = self.aryCategory

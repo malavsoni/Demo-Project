@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		9C50BD341408DFC12EC85262 /* Pods_Heady_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB1FEF5A51629FB0BE3A79B /* Pods_Heady_Test.framework */; };
 		B67924FE222F627400A1CB33 /* HTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67924FD222F627400A1CB33 /* HTButton.swift */; };
+		B69FF070223026CC00893F79 /* SortedProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69FF06F223026CC00893F79 /* SortedProductListViewController.swift */; };
+		B69FF0742230272100893F79 /* HTProductVarientView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B69FF0722230272100893F79 /* HTProductVarientView.xib */; };
+		B69FF0752230272100893F79 /* HTProductVarientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69FF0732230272100893F79 /* HTProductVarientView.swift */; };
 		B6CBB6D4222D74CD00729052 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CBB6D3222D74CD00729052 /* AppDelegate.swift */; };
-		B6CBB6D6222D74CD00729052 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CBB6D5222D74CD00729052 /* ViewController.swift */; };
 		B6CBB6D9222D74CD00729052 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6CBB6D7222D74CD00729052 /* Main.storyboard */; };
 		B6CBB6DC222D74CD00729052 /* Heady_Test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B6CBB6DA222D74CD00729052 /* Heady_Test.xcdatamodeld */; };
 		B6CBB6DE222D74CF00729052 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6CBB6DD222D74CF00729052 /* Assets.xcassets */; };
@@ -66,9 +68,11 @@
 		9DF0B97120B2AF6D4E3D0D4E /* Pods-Heady TestUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heady TestUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Heady TestUITests/Pods-Heady TestUITests.release.xcconfig"; sourceTree = "<group>"; };
 		ADB1FEF5A51629FB0BE3A79B /* Pods_Heady_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Heady_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B67924FD222F627400A1CB33 /* HTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTButton.swift; sourceTree = "<group>"; };
+		B69FF06F223026CC00893F79 /* SortedProductListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedProductListViewController.swift; sourceTree = "<group>"; };
+		B69FF0722230272100893F79 /* HTProductVarientView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTProductVarientView.xib; sourceTree = "<group>"; };
+		B69FF0732230272100893F79 /* HTProductVarientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTProductVarientView.swift; sourceTree = "<group>"; };
 		B6CBB6D0222D74CD00729052 /* Heady Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Heady Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6CBB6D3222D74CD00729052 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B6CBB6D5222D74CD00729052 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B6CBB6D8222D74CD00729052 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B6CBB6DB222D74CD00729052 /* Heady_Test.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Heady_Test.xcdatamodel; sourceTree = "<group>"; };
 		B6CBB6DD222D74CF00729052 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -149,6 +153,15 @@
 			path = CustomControl;
 			sourceTree = "<group>";
 		};
+		B69FF0712230271100893F79 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				B69FF0732230272100893F79 /* HTProductVarientView.swift */,
+				B69FF0722230272100893F79 /* HTProductVarientView.xib */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
 		B6CBB6C7222D74CD00729052 = {
 			isa = PBXGroup;
 			children = (
@@ -180,7 +193,6 @@
 				B6CBB704222D7BB300729052 /* View */,
 				B6CBB705222D7BB300729052 /* Controller */,
 				B6CBB6D3222D74CD00729052 /* AppDelegate.swift */,
-				B6CBB6D5222D74CD00729052 /* ViewController.swift */,
 				B6CBB6D7222D74CD00729052 /* Main.storyboard */,
 				B6CBB6DD222D74CF00729052 /* Assets.xcassets */,
 				B6CBB6DF222D74CF00729052 /* LaunchScreen.storyboard */,
@@ -211,6 +223,7 @@
 		B6CBB704222D7BB300729052 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B69FF0712230271100893F79 /* UIView */,
 				B6CBB72D222D917F00729052 /* TableView */,
 				B6CBB72C222D917F00729052 /* TableViewCell */,
 			);
@@ -224,6 +237,7 @@
 				B6CBB724222D907B00729052 /* CategoryViewController.swift */,
 				B6CBB726222D908E00729052 /* ProductListViewController.swift */,
 				B6CBB728222D90A100729052 /* ProductDetailsViewController.swift */,
+				B69FF06F223026CC00893F79 /* SortedProductListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -408,6 +422,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B69FF0742230272100893F79 /* HTProductVarientView.xib in Resources */,
 				B6CBB6E1222D74CF00729052 /* LaunchScreen.storyboard in Resources */,
 				B6CBB73B222D93CD00729052 /* HTCategoryTableViewCell.xib in Resources */,
 				B6CBB6DE222D74CF00729052 /* Assets.xcassets in Resources */,
@@ -534,7 +549,6 @@
 				B6CBB72B222D916700729052 /* BaseViewController.swift in Sources */,
 				B6CBB725222D907B00729052 /* CategoryViewController.swift in Sources */,
 				B67924FE222F627400A1CB33 /* HTButton.swift in Sources */,
-				B6CBB6D6222D74CD00729052 /* ViewController.swift in Sources */,
 				B6CBB733222D91FB00729052 /* HTCategoryTableView.swift in Sources */,
 				B6CBB71D222D7F5E00729052 /* HTProduct.swift in Sources */,
 				B6CBB729222D90A100729052 /* ProductDetailsViewController.swift in Sources */,
@@ -549,8 +563,10 @@
 				B6CBB73E222D93E300729052 /* HTProductTableViewCell.swift in Sources */,
 				B6CBB743222D94D600729052 /* HTCoreDataHelper.swift in Sources */,
 				B6CBB6DC222D74CD00729052 /* Heady_Test.xcdatamodeld in Sources */,
+				B69FF0752230272100893F79 /* HTProductVarientView.swift in Sources */,
 				B6CBB727222D908E00729052 /* ProductListViewController.swift in Sources */,
 				B6CBB721222D7F7500729052 /* HTTax.swift in Sources */,
+				B69FF070223026CC00893F79 /* SortedProductListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

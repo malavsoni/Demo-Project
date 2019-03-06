@@ -7,7 +7,7 @@ target 'Heady Test' do
 
   # Pods for Heady Test
   pod 'Alamofire'
-  pod 'SVProgressHUD'
+  pod 'SVProgressHUD' 
 
   target 'Heady TestTests' do
     inherit! :search_paths

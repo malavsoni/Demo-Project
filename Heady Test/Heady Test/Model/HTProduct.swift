@@ -24,6 +24,7 @@ class HTProduct: NSObject {
     var orderCount:Int = 0
     var varients:[HTVarient] = []
     var tax:HTTax!
+    var codeDataObj:Product?
     
     init(WithContent dicContent:[String:Any]) {
         super.init()
@@ -71,6 +72,10 @@ class HTProduct: NSObject {
         if let productTax = coreData.tax{
             self.tax = HTTax.init(WithCoreDataObject: productTax)
         }
+        self.orderCount = Int(coreData.orderCount)
+        self.shareCount = Int(coreData.shares)
+        self.viewCount = Int(coreData.viewCount)
+        self.codeDataObj = coreData
     }
     
     @discardableResult
@@ -91,5 +96,12 @@ class HTProduct: NSObject {
         }
          
         return product
+    }
+    
+    func updateToLocalStorage() -> Void {
+        self.codeDataObj?.viewCount = Int64(self.viewCount)
+        self.codeDataObj?.shares = Int64(self.shareCount)
+        self.codeDataObj?.orderCount = Int64(self.orderCount)
+        HTCoreDataHelper.shared.saveContext()
     }
 }

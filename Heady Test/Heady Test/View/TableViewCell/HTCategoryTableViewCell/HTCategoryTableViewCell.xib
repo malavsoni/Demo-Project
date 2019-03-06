@@ -19,13 +19,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1Q-Pk-jIi">
-                        <rect key="frame" x="16" y="11" width="128" height="58"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1Q-Pk-jIi">
+                        <rect key="frame" x="16" y="11" width="118" height="58"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baseline_navigate_next_black_36pt" translatesAutoresizingMaskIntoConstraints="NO" id="c21-44-4ps">
+                    <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" image="baseline_navigate_next_black_36pt" translatesAutoresizingMaskIntoConstraints="NO" id="c21-44-4ps">
                         <rect key="frame" x="232" y="11" width="72" height="58"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="13 Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w50-Bz-fAg">
@@ -40,7 +40,7 @@
                     <constraint firstItem="w50-Bz-fAg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Ppk-Bf-2N4"/>
                     <constraint firstAttribute="bottomMargin" secondItem="w50-Bz-fAg" secondAttribute="bottom" id="Xxo-89-0Ae"/>
                     <constraint firstItem="c21-44-4ps" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="ZKT-jY-Vwo"/>
-                    <constraint firstItem="w50-Bz-fAg" firstAttribute="leading" secondItem="d1Q-Pk-jIi" secondAttribute="trailing" id="bjB-KS-BWM"/>
+                    <constraint firstItem="w50-Bz-fAg" firstAttribute="leading" secondItem="d1Q-Pk-jIi" secondAttribute="trailing" constant="10" id="bjB-KS-BWM"/>
                     <constraint firstItem="d1Q-Pk-jIi" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="nbm-zS-K8n"/>
                     <constraint firstItem="d1Q-Pk-jIi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="oIx-dr-Tvl"/>
                     <constraint firstItem="c21-44-4ps" firstAttribute="leading" secondItem="w50-Bz-fAg" secondAttribute="trailing" id="u8B-jt-VVN"/>

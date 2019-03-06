@@ -15,6 +15,11 @@ class HTServiceManager: NSObject {
     
     override private init() {
         super.init()
+        
+    }
+    
+    class func isInternetAvailable() -> Bool {
+        return NetworkReachabilityManager()!.isReachable
     }
     
     func getCategoryInfoFromServer(WithCompletion completion:@escaping ((Bool,[HTCategory],Error?)->())) -> Void {
@@ -25,6 +30,10 @@ class HTServiceManager: NSObject {
                     var aryValueToReturn:[HTCategory] = []
                     if let serverResponse = jsonValue as? [String:Any]{
                         if let aryCategory = serverResponse["categories"] as? [[String:Any]]{
+                            
+                            // Remove Previous Data from Local Database
+                            HTCoreDataHelper.shared.clearDatabase()
+                            
                             // Store Category In Local Database
                             for category in aryCategory{
                                 let categoryRef = HTCategory.init(WithContent: category)
@@ -33,6 +42,34 @@ class HTServiceManager: NSObject {
                             }
                              
                         }
+                        if let aryRankings = serverResponse["rankings"] as? [[String:Any]]{
+                            // Store Category In Local Database
+                            for rankType in aryRankings{
+                                if let aryProduct = rankType["products"] as? [[String:Any]]{
+                                    for productRank in aryProduct{
+                                        if let productViewCount = productRank["view_count"] as? Int, let productId = productRank["id"] as? Int{
+                                            if let localDBProductRef = HTCoreDataHelper.shared.getProduct(ById: "\(productId)"){
+                                                localDBProductRef.viewCount = productViewCount
+                                                localDBProductRef.updateToLocalStorage()
+                                            }
+                                        }
+                                        if let productViewCount = productRank["shares"] as? Int, let productId = productRank["id"] as? Int{
+                                            if let localDBProductRef = HTCoreDataHelper.shared.getProduct(ById: "\(productId)"){
+                                                localDBProductRef.shareCount = productViewCount
+                                                localDBProductRef.updateToLocalStorage()
+                                            }
+                                        }
+                                        if let productViewCount = productRank["order_count"] as? Int, let productId = productRank["id"] as? Int{
+                                            if let localDBProductRef = HTCoreDataHelper.shared.getProduct(ById: "\(productId)"){
+                                                localDBProductRef.orderCount = productViewCount
+                                                localDBProductRef.updateToLocalStorage()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
                     }
                     completion(true,aryValueToReturn,nil)
                     break

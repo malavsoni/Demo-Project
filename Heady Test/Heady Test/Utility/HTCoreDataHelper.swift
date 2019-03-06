@@ -70,10 +70,16 @@ class HTCoreDataHelper: NSObject {
 extension HTCoreDataHelper{
     // Helper Methods
     @discardableResult
+    /// Get All Category
+    ///
+    /// - Returns: Array of category
     func getAllCategory() -> [HTCategory] {
         let fetchRequest = NSFetchRequest<Category>(entityName: "\(Category.self)")
         fetchRequest.includesSubentities = true
-        //fetchRequest.predicate = NSPredicate.init(format: "%K.count > %i","childCategories",0)
+        fetchRequest.predicate = NSPredicate.init(format: "%K != %@","childCategories","")
+        let sort = NSSortDescriptor(key: "childCategories", ascending: false)
+        fetchRequest.sortDescriptors = [sort]
+        
         var aryToReturn:[HTCategory] = []
         do {
             let results = try self.getCurrentContext().fetch(fetchRequest)
@@ -87,6 +93,76 @@ extension HTCoreDataHelper{
         return aryToReturn
     }
     
+    /// Get Most Viewed Products
+    ///
+    /// - Returns: Array of products
+    func getMostViewedProducts() -> [HTProduct] {
+        let fetchRequest = NSFetchRequest<Product>(entityName: "\(Product.self)")
+        fetchRequest.includesSubentities = true
+        fetchRequest.predicate = NSPredicate.init(format: "%K > %i","viewCount",0)
+        let sort = NSSortDescriptor(key: "viewCount", ascending: false)
+        fetchRequest.sortDescriptors = [sort]
+        var aryToReturn:[HTProduct] = []
+        do {
+            let results = try self.getCurrentContext().fetch(fetchRequest)
+            for cat in results {
+                //print(cat.debugDescription)
+                aryToReturn.append(HTProduct.init(WithCoreDataObject: cat))
+            }
+        } catch  {
+            return aryToReturn
+        }
+        return aryToReturn
+    }
+    
+    /// Get Most Ordered Products
+    ///
+    /// - Returns: Array of products
+    func getMostOrderedProducts() -> [HTProduct] {
+        let fetchRequest = NSFetchRequest<Product>(entityName: "\(Product.self)")
+        fetchRequest.includesSubentities = true
+        fetchRequest.predicate = NSPredicate.init(format: "%K > %i","orderCount",0)
+        let sort = NSSortDescriptor(key: "orderCount", ascending: false)
+        fetchRequest.sortDescriptors = [sort]
+        var aryToReturn:[HTProduct] = []
+        do {
+            let results = try self.getCurrentContext().fetch(fetchRequest)
+            for cat in results {
+                //print(cat.debugDescription)
+                aryToReturn.append(HTProduct.init(WithCoreDataObject: cat))
+            }
+        } catch  {
+            return aryToReturn
+        }
+        return aryToReturn
+    }
+    
+    /// Get Most Shared Products
+    ///
+    /// - Returns: Array of products
+    func getMostSharedProducts() -> [HTProduct] {
+        let fetchRequest = NSFetchRequest<Product>(entityName: "\(Product.self)")
+        fetchRequest.includesSubentities = true
+        fetchRequest.predicate = NSPredicate.init(format: "%K > %i","shares",0)
+        let sort = NSSortDescriptor(key: "shares", ascending: false)
+        fetchRequest.sortDescriptors = [sort]
+        var aryToReturn:[HTProduct] = []
+        do {
+            let results = try self.getCurrentContext().fetch(fetchRequest)
+            for cat in results {
+                //print(cat.debugDescription)
+                aryToReturn.append(HTProduct.init(WithCoreDataObject: cat))
+            }
+        } catch  {
+            return aryToReturn
+        }
+        return aryToReturn
+    }
+    
+    /// Fetch Category Object By Id
+    ///
+    /// - Parameter categoryId: Category Id
+    /// - Returns: HTCategory object
     func getCategory(ById categoryId:String) -> HTCategory? {
         let fetchRequest = NSFetchRequest<Category>(entityName: "\(Category.self)")
         fetchRequest.includesSubentities = true
@@ -95,7 +171,6 @@ extension HTCoreDataHelper{
         do {
             let results = try self.getCurrentContext().fetch(fetchRequest)
             for cat in results {
-                //print(cat.debugDescription)
                 valueToReturn = (HTCategory.init(WithCoreDataObject: cat))
             }
         } catch  {
@@ -104,6 +179,28 @@ extension HTCoreDataHelper{
         return valueToReturn
     }
     
+    /// Get Product Object By Product ID
+    ///
+    /// - Parameter productId: product Id
+    /// - Returns: HTProduct Object
+    func getProduct(ById productId:String) -> HTProduct? {
+        let fetchRequest = NSFetchRequest<Product>(entityName: "\(Product.self)")
+        fetchRequest.includesSubentities = true
+        fetchRequest.predicate = NSPredicate.init(format: "%K = %i","id",Int(productId)!)
+        var valueToReturn:HTProduct?
+        do {
+            let results = try self.getCurrentContext().fetch(fetchRequest)
+            for cat in results {
+                //print(cat.debugDescription)
+                valueToReturn = (HTProduct.init(WithCoreDataObject: cat))
+            }
+        } catch  {
+            return valueToReturn
+        }
+        return valueToReturn
+    }
+    
+    /// Clear Database
     func clearDatabase() -> Void {
         let categoryFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(Category.self)")
         let categoryDeleteRequest = NSBatchDeleteRequest.init(fetchRequest: categoryFetchRequest)

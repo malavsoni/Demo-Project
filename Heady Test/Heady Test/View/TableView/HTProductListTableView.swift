@@ -17,11 +17,22 @@ class HTProductListTableView: HTTableView {
      // Drawing code
      }
      */
+    
+    enum SubTitleContentType {
+        case varient
+        case mostViewed
+        case mostShared
+        case mostOrdered
+    }
+    
+    var subTitleContentType:SubTitleContentType = .varient
+    
     var aryProducts:[HTProduct] = []{
         didSet{
             self.reloadData()
         }
     }
+    
     
     override func commonInit() {
         self.rowHeight = UITableView.automaticDimension
@@ -35,7 +46,7 @@ class HTProductListTableView: HTTableView {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellRef = tableView.dequeueReusableCell(withIdentifier: "\(HTCategoryTableViewCell.self)") as! HTCategoryTableViewCell
-        cellRef.updateCell(WithContent: self.aryProducts[indexPath.row])
+        cellRef.updateCell(WithContent: self.aryProducts[indexPath.row], WithContentType: self.subTitleContentType)
         return cellRef
     }
     

@@ -25,7 +25,7 @@ class HTCategoryTableViewCell: HTTableViewCell {
     }
     
     func updateCell(WithContent content:HTCategory) -> Void {
-        self.lblCategoryName.text = "\(content.id) \(content.name)"
+        self.lblCategoryName.text = " \(content.name)"
         if content.childCategory.count > 0{
             self.lblSubTitle.text = "\(content.childCategory.count) Category"
         }else if content.products.count > 0{
@@ -35,8 +35,22 @@ class HTCategoryTableViewCell: HTTableViewCell {
         }
     }
     
-    func updateCell(WithContent content:HTProduct) -> Void {
-        self.lblCategoryName.text = "\(content.id) \(content.name)"
-        self.lblSubTitle.text = "\(content.varients.count) Variants"
+    func updateCell(WithContent content:HTProduct, WithContentType rightContentType:HTProductListTableView.SubTitleContentType) -> Void {
+        self.lblCategoryName.text = "\(content.name)"
+        switch rightContentType {
+        case .varient:
+            self.lblSubTitle.text = "\(content.varients.count) Variants"
+            break
+        case .mostOrdered:
+            self.lblSubTitle.text = "\(content.orderCount) Ordered"
+            break
+        case .mostShared:
+            self.lblSubTitle.text = "\(content.shareCount) Shared"
+            break
+        case .mostViewed:
+            self.lblSubTitle.text = "\(content.viewCount) Viewed"
+            break
+        }
+        
     }
 }
