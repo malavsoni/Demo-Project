@@ -17,8 +17,20 @@ class ProductListViewController: BaseViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.tblReference.aryProducts = aryProduct
+        self.setUpTableView()
     }
     
+    func setUpTableView() -> Void {
+        self.tblReference.didSelectRowNotification = {[weak self](indexPath) in
+            guard let controllerRef = self else { return }
+            
+            if let vcProductDetails = self?.storyboard?.instantiateViewController(withIdentifier: "\(ProductDetailsViewController.self)") as? ProductDetailsViewController
+            {
+                vcProductDetails.product = controllerRef.aryProduct[indexPath.row]
+                self?.navigationController?.pushViewController(vcProductDetails, animated: true)
+            }
+        }
+    }
 
     /*
     // MARK: - Navigation

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9C50BD341408DFC12EC85262 /* Pods_Heady_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB1FEF5A51629FB0BE3A79B /* Pods_Heady_Test.framework */; };
+		B67924FE222F627400A1CB33 /* HTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67924FD222F627400A1CB33 /* HTButton.swift */; };
 		B6CBB6D4222D74CD00729052 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CBB6D3222D74CD00729052 /* AppDelegate.swift */; };
 		B6CBB6D6222D74CD00729052 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CBB6D5222D74CD00729052 /* ViewController.swift */; };
 		B6CBB6D9222D74CD00729052 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6CBB6D7222D74CD00729052 /* Main.storyboard */; };
@@ -64,6 +65,7 @@
 		9898D209FFDCAE69628075D2 /* Pods-Heady Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heady Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-Heady Test/Pods-Heady Test.release.xcconfig"; sourceTree = "<group>"; };
 		9DF0B97120B2AF6D4E3D0D4E /* Pods-Heady TestUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heady TestUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Heady TestUITests/Pods-Heady TestUITests.release.xcconfig"; sourceTree = "<group>"; };
 		ADB1FEF5A51629FB0BE3A79B /* Pods_Heady_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Heady_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B67924FD222F627400A1CB33 /* HTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTButton.swift; sourceTree = "<group>"; };
 		B6CBB6D0222D74CD00729052 /* Heady Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Heady Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6CBB6D3222D74CD00729052 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6CBB6D5222D74CD00729052 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B67924FC222F625D00A1CB33 /* CustomControl */ = {
+			isa = PBXGroup;
+			children = (
+				B67924FD222F627400A1CB33 /* HTButton.swift */,
+			);
+			path = CustomControl;
+			sourceTree = "<group>";
+		};
 		B6CBB6C7222D74CD00729052 = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +174,7 @@
 		B6CBB6D2222D74CD00729052 /* Heady Test */ = {
 			isa = PBXGroup;
 			children = (
+				B67924FC222F625D00A1CB33 /* CustomControl */,
 				B6CBB740222D94D600729052 /* Utility */,
 				B6CBB706222D7BB300729052 /* Model */,
 				B6CBB704222D7BB300729052 /* View */,
@@ -522,6 +533,7 @@
 				B6CBB746222D94E300729052 /* HTLoader.swift in Sources */,
 				B6CBB72B222D916700729052 /* BaseViewController.swift in Sources */,
 				B6CBB725222D907B00729052 /* CategoryViewController.swift in Sources */,
+				B67924FE222F627400A1CB33 /* HTButton.swift in Sources */,
 				B6CBB6D6222D74CD00729052 /* ViewController.swift in Sources */,
 				B6CBB733222D91FB00729052 /* HTCategoryTableView.swift in Sources */,
 				B6CBB71D222D7F5E00729052 /* HTProduct.swift in Sources */,
